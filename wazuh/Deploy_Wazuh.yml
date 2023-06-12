@@ -1,0 +1,26 @@
+---
+- hosts: basic
+  name: Copy Wazuh agent msi file and Install on remote machine
+  gather_facts: true
+  become_method: runas
+  tasks:
+    - name: Copy Wazuh-Agent msi file
+      win_copy:
+        src: /home/sakir/wazuh-agent.msi
+        dest: C:\wazuh-agent.msi
+
+    - name: Install Wazuh-Agent on remote machine
+      win_package:
+        path: C:\wazuh-agent.msi
+        arguments: '/q WAZUH_MANAGER="172.17.16.96"'
+
+    - name: Execute cmd command for start wazuh agent service
+      win_command:
+        NET START WazuhSvc
+        become_method: runas
+
+    - name: Delete msi file
+      win_package:
+        path: C:\wazuh-agent.msi
+        status: absent
+        become_method: runas
