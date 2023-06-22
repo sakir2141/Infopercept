@@ -12,14 +12,14 @@
     ansible.windows.win_shell: |
       git clone http://172.17.14.49:31080/harshb/IvsAgent.git
     args:
-      chdir: C:\Users\Public\Downloads
+      chdir: C:\Users\Public\Down
       executable: cmd
 
   - name: Installing Single Agent
     ansible.windows.win_shell: |
       msiexec.exe /i InvinSetup.msi /l*v install.log WAZUH_MANAGER="172.17.16.81" WAZUH_REGISTRATION_SERVER="172.17.16.81" WAZUH_AGENT_GROUP="default" WAZUH_REGISTRATION_TYPE="NONE" SKIP_ENDPOINT_DECEPTION="y"
     args:
-      chdir: C:\Users\Public\Downloads\IvsAgent
+      chdir: C:\Users\Public\Down\IvsAgent
       executable: cmd
 
   - name: Modify ossec.conf - Wazuh manager IP
